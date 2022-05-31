@@ -15,12 +15,21 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex s_pipex;
+	int fd[2];
 	
+	if (argc != 5)
+		return (ft_print("Number of argument invalid\n"));
+	pipe (fd);
 	s_pipex.pid = fork();
 	if (s_pipex.pid == -1)
 	{
 		perror("fork");
-		exit(EXIT_FAILURE);
+		return 1;
+	}
+	if (s_pipex.pid == 0)
+	{
+		close(fd[0]);
+		
 	}
 }
 
