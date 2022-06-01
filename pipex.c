@@ -6,20 +6,31 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/05/30 15:15:37 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/01 12:50:58 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <fcntl.h>
+
+void	chill_process(int *fd, char argv)
+{
+	int outfile;
+
+	close(fd[1]); //cerramos el lado de escritura del pipe
+	outfile = open(argv, O_WRONLY | O_APPEND);
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]); //cerramos el lado de lectura del pipe
+	dup2(outfile, STDOUT_FILENO);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex s_pipex;
-	int fd[2];
 	
 	if (argc != 5)
 		return (ft_print("Number of argument invalid\n"));
-	pipe (fd);
+	pipe (s_pipex.fd);
 	s_pipex.pid = fork();
 	if (s_pipex.pid == -1)
 	{
@@ -27,10 +38,7 @@ int	main(int argc, char **argv, char **envp)
 		return 1;
 	}
 	if (s_pipex.pid == 0)
-	{
-		close(fd[0]);
-		
-	}
+		chill_process(s_pipex.fd, argv[1]);
 }
 
 /* int main (void)

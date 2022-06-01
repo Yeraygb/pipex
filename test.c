@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 10:19:09 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/01 10:19:36 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/01 11:10:08 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,8 @@ int	ft_open(void)
 	return (fd);
 }
 
-void	ft_test(int file1, char *str, int *fd1, char **env)
-{
-	char	**command;	
-
-	close(fd1[0]);
-	dup2(file1, STDIN_FILENO);
-	dup2(fd1[1], STDOUT_FILENO);
-	close(fd1[1]);
-	command = ft_split(str, ' ');
-	ft_get_command(command, env);
-	ft_free2(command);
-	close(file1);
-}
-
 void	ft_test2(char **argv, int *fd1, char **env)
-{
+{ 
 	int		pid;
 	char	**ptr;
 	int		file2;
@@ -92,6 +78,20 @@ void	ft_test2(char **argv, int *fd1, char **env)
 		waitpid(pid, NULL, 0);
 		close(fd1[1]);
 	}
+}
+
+void	ft_test(int file1, char *str, int *fd1, char **env)
+{
+	char	**command;	
+
+	close(fd1[0]);
+	dup2(file1, STDIN_FILENO);
+	dup2(fd1[1], STDOUT_FILENO);
+	close(fd1[1]);
+	command = ft_split(str, ' ');
+	ft_get_command(command, env);
+	ft_free2(command);
+	close(file1);
 }
 
 int	main(int argc, char **argv, char **env)
