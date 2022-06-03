@@ -13,21 +13,44 @@
 #include "pipex.h"
 #include <fcntl.h>
 
-void	chill_process(int *fd, char argv)
+void	chill_process(int *fd, char **argv, char **path)
 {
-	int outfile;
+	int 	outfile;
+	char **split_av;
 
 	close(fd[1]); //cerramos el lado de escritura del pipe
 	outfile = open(argv, O_WRONLY | O_APPEND);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]); //cerramos el lado de lectura del pipe
 	dup2(outfile, STDOUT_FILENO);
+	split_av = ft_split(argv[2], ' ');
+	
 }
+
+char *obtain_path(char **envp)
+{
+	t_path	s_path;
+	int		i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp(envp[i], "PATH=", 4))
+		{
+			s_path.path = ft_split(envp[i], ':');
+			s_path.pathjoin = ft_strjoin(s_path.path, "/");
+		}
+	}
+	return(s_path.pathjoin);
+}
+
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex s_pipex;
-	
+	char	**path;
+
+	path = obtain_path(envp);
 	if (argc != 5)
 		return (ft_print("Number of argument invalid\n"));
 	pipe (s_pipex.fd);
@@ -38,8 +61,8 @@ int	main(int argc, char **argv, char **envp)
 		return 1;
 	}
 	if (s_pipex.pid == 0) //proceso hijo
-		chill_process(s_pipex.fd, argv[1]);
-}
+		chill_process(s_pipex.fd, argv, path);
+} 
 
 /* int main (void)
 {
