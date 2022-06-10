@@ -6,28 +6,53 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/01 17:08:27 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/10 14:46:03 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <stdlib.h> 
 
-void	chill_process(int *fd, char **argv, char **path)
+void	chill_process(int *fd, char **argv, const char **path)
 {
-	int 	outfile;
-	char **split_av;
+	int		outfile;
+	char	**split_av;
+	char 	*dir[] = {"ls", "-l", 0};
 
 	close(fd[1]); //cerramos el lado de escritura del pipe
-	outfile = open(argv, O_WRONLY | O_APPEND);
-	dup2(fd[0], STDIN_FILENO);
+	outfile = open("infile", O_RDONLY);
+	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]); //cerramos el lado de lectura del pipe
-	dup2(outfile, STDOUT_FILENO);
-	split_av = ft_split(argv[2], ' ');
-	
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[1]);
+	close(outfile);
+	//split_av = ft_split(argv[2], ' ');
+	execve("../bin/ls", dir. envp);
 }
 
-char *obtain_path(char **envp)
+void	parent_process(int *fd, char **argv, const char **path)
+{
+	int		outfile;
+	char	**split_av;
+	char	*dir2[] = {"wc", "-l", 0};
+
+	waitpid(s_pipex.pid, NULL, 0);
+	close(fd[1]); //cerramos el lado de escritura del pipe
+	outfile = open("infile", O_RDONLY);
+	dup2(fd[1], STDOUT_FILENO);
+	close(fd[0]); //cerramos el lado de lectura del pipe
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[1]);
+	close(outfile);
+	//split_av = ft_split(argv[2], ' ');
+	execve("../bin/ls", dir. envp);
+}
+
+/* char *obtain_path(char **envp)
 {
 	t_path	s_path;
 	int		i;
@@ -40,9 +65,10 @@ char *obtain_path(char **envp)
 			s_path.path = ft_split(envp[i], ':');
 			s_path.pathjoin = ft_strjoin(s_path.path, "/");
 		}
+		i++;
 	}
 	return(s_path.pathjoin);
-}
+} */
 
 
 int	main(int argc, char **argv, char **envp)
@@ -50,7 +76,7 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex s_pipex;
 	char	**path;
 
-	path = obtain_path(envp);
+	//path = obtain_path(envp);
 	if (argc != 5)
 		return (ft_print("Number of argument invalid\n"));
 	pipe (s_pipex.fd);
@@ -62,6 +88,9 @@ int	main(int argc, char **argv, char **envp)
 	}
 	if (s_pipex.pid == 0) //proceso hijo
 		chill_process(s_pipex.fd, argv, path);
+	else
+		parent_process(s_pipex.fd, argv, path);
+	return 0;
 } 
 
 /* int main (void)
