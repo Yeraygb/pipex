@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/10 15:14:41 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:40:07 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 #include <sys/wait.h>
 #include <stdlib.h> 
 
-void	chill_process(int *fd, char **argv, const char **path)
+void	chill_process(int *fd, char **argv, char **envp)
 {
 	int		infile;
-	char	**split_av;
+	//char	**split_av;
 	char 	*dir[] = {"ls", "-l", 0};
 	int		file;
 
@@ -32,27 +32,27 @@ void	chill_process(int *fd, char **argv, const char **path)
 	close(fd[1]);
 	close(file);
 	//split_av = ft_split(argv[2], ' ');
-	execve("../bin/ls", dir. envp);
+	execve("../bin/ls", dir, envp);
 }
 
-void	parent_process(int *fd, char **argv, const char **path, pid_t pid)
+void	parent_process(int *fd, char **argv, char **envp, pid_t pid)
 {
 	int		outfile;
-	char	**split_av;
+	//char	**split_av;
 	char	*dir2[] = {"wc", "-l", 0};
 	int		file;
 
 	waitpid(pid, NULL, 0); //espera al proceso hijo
-	//close(fd[1]); //cerramos el lado de escritura del pipe
-	file = open("outfile", O_RDONLY);
+	file = open("outfile", O_WRONLY);
+	close(fd[1]); //cerramos el lado de escritura del pipe
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]); //cerramos el lado de lectura del pipe
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
-	close(file);
 	//split_av = ft_split(argv[2], ' ');
-	execve("../bin/ls", dir. envp);
+	execve("../usr/bin/wc", dir2, envp);
 }
+
 
 /* char *obtain_path(char **envp)
 {
@@ -79,8 +79,8 @@ int	main(int argc, char **argv, char **envp)
 	char	**path;
 
 	//path = obtain_path(envp);
-	if (argc != 5)
-		return (ft_print("Number of argument invalid\n"));
+/* 	if (argc != 5)
+		return (ft_print("Number of argument invalid\n")); */
 	pipe (s_pipex.fd);
 	s_pipex.pid = fork();
 	if (s_pipex.pid == -1)
@@ -89,9 +89,9 @@ int	main(int argc, char **argv, char **envp)
 		return 1;
 	}
 	if (s_pipex.pid == 0) //proceso hijo
-		chill_process(s_pipex.fd, argv, path);
+		chill_process(s_pipex.fd, argv, envp);
 	else
-		parent_process(s_pipex.fd, argv, path, s_pipex.pid);
+		parent_process(s_pipex.fd, argv, envp, s_pipex.pid);
 	return 0;
 } 
 
