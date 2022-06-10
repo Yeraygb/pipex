@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/10 15:40:07 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:45:16 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	chill_process(int *fd, char **argv, char **envp)
 	file = open("infile", O_RDONLY);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]); //cerramos el lado de lectura del pipe
-	dup2(fd[0], STDIN_FILENO);
+	dup2(file, STDIN_FILENO);
 	close(fd[1]);
 	close(file);
 	//split_av = ft_split(argv[2], ' ');
@@ -47,7 +47,7 @@ void	parent_process(int *fd, char **argv, char **envp, pid_t pid)
 	close(fd[1]); //cerramos el lado de escritura del pipe
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]); //cerramos el lado de lectura del pipe
-	dup2(fd[1], STDOUT_FILENO);
+	dup2(file, STDOUT_FILENO);
 	close(fd[1]);
 	//split_av = ft_split(argv[2], ' ');
 	execve("../usr/bin/wc", dir2, envp);
