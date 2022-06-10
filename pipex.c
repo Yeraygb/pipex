@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/10 14:46:03 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:14:41 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,37 @@
 
 void	chill_process(int *fd, char **argv, const char **path)
 {
-	int		outfile;
+	int		infile;
 	char	**split_av;
 	char 	*dir[] = {"ls", "-l", 0};
+	int		file;
 
-	close(fd[1]); //cerramos el lado de escritura del pipe
-	outfile = open("infile", O_RDONLY);
+	//close(fd[1]); //cerramos el lado de escritura del pipe
+	file = open("infile", O_RDONLY);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]); //cerramos el lado de lectura del pipe
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[1]);
-	close(outfile);
+	close(file);
 	//split_av = ft_split(argv[2], ' ');
 	execve("../bin/ls", dir. envp);
 }
 
-void	parent_process(int *fd, char **argv, const char **path)
+void	parent_process(int *fd, char **argv, const char **path, pid_t pid)
 {
 	int		outfile;
 	char	**split_av;
 	char	*dir2[] = {"wc", "-l", 0};
+	int		file;
 
-	waitpid(s_pipex.pid, NULL, 0);
-	close(fd[1]); //cerramos el lado de escritura del pipe
-	outfile = open("infile", O_RDONLY);
-	dup2(fd[1], STDOUT_FILENO);
-	close(fd[0]); //cerramos el lado de lectura del pipe
+	waitpid(pid, NULL, 0); //espera al proceso hijo
+	//close(fd[1]); //cerramos el lado de escritura del pipe
+	file = open("outfile", O_RDONLY);
 	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]); //cerramos el lado de lectura del pipe
+	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
-	close(outfile);
+	close(file);
 	//split_av = ft_split(argv[2], ' ');
 	execve("../bin/ls", dir. envp);
 }
@@ -89,7 +91,7 @@ int	main(int argc, char **argv, char **envp)
 	if (s_pipex.pid == 0) //proceso hijo
 		chill_process(s_pipex.fd, argv, path);
 	else
-		parent_process(s_pipex.fd, argv, path);
+		parent_process(s_pipex.fd, argv, path, s_pipex.pid);
 	return 0;
 } 
 
