@@ -26,13 +26,13 @@ void	chill_process(int *fd, char **argv, char **envp)
 
 	//close(fd[1]); //cerramos el lado de escritura del pipe
 	file = open("infile", O_RDONLY);
-	dup2(fd[1], STDOUT_FILENO);
+	dup2(fd[1], STDOUT_FILENO); // meter el fd original en el standar out de la pipe
 	close(fd[0]); //cerramos el lado de lectura del pipe
-	dup2(file, STDIN_FILENO);
-	close(fd[1]);
+	dup2(file, STDIN_FILENO); //recibir atraves de la pipe por el standar in el fd
+	close(fd[1]); //cerrar el lado de escrituda
 	close(file);
 	//split_av = ft_split(argv[2], ' ');
-	execve("../bin/ls", dir, envp);
+	execve("../bin/ls",  dir, envp);
 }
 
 void	parent_process(int *fd, char **argv, char **envp, pid_t pid)
