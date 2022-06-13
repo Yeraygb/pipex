@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/10 15:45:16 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:09:33 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 #include <sys/wait.h>
 #include <stdlib.h> 
 
-void	chill_process(int *fd, char **argv, char **envp)
+void	child_process(int *fd, char **argv, char **envp)
 {
 	int		infile;
-	//char	**split_av;
+	char	**split_av;
 	char 	*dir[] = {"ls", "-l", 0};
 	int		file;
 
@@ -31,14 +31,14 @@ void	chill_process(int *fd, char **argv, char **envp)
 	dup2(file, STDIN_FILENO); //recibir atraves de la pipe por el standar in el fd
 	close(fd[1]); //cerrar el lado de escrituda
 	close(file);
-	//split_av = ft_split(argv[2], ' ');
+	split_av = ft_split(argv[2], ' ');
 	execve("../bin/ls",  dir, envp);
 }
 
 void	parent_process(int *fd, char **argv, char **envp, pid_t pid)
 {
 	int		outfile;
-	//char	**split_av;
+	char	**split_av;
 	char	*dir2[] = {"wc", "-l", 0};
 	int		file;
 
@@ -49,7 +49,7 @@ void	parent_process(int *fd, char **argv, char **envp, pid_t pid)
 	close(fd[0]); //cerramos el lado de lectura del pipe
 	dup2(file, STDOUT_FILENO);
 	close(fd[1]);
-	//split_av = ft_split(argv[2], ' ');
+	split_av = ft_split(argv[2], ' ');
 	execve("../usr/bin/wc", dir2, envp);
 }
 
@@ -79,17 +79,17 @@ int	main(int argc, char **argv, char **envp)
 	char	**path;
 
 	//path = obtain_path(envp);
-/* 	if (argc != 5)
-		return (ft_print("Number of argument invalid\n")); */
+	if (argc != 5)
+		return (ft_printf("Number of argument invalid\n"));
 	pipe (s_pipex.fd);
 	s_pipex.pid = fork();
 	if (s_pipex.pid == -1)
 	{
-		perror("fork");
+		perror("ERROR");
 		return 1;
 	}
 	if (s_pipex.pid == 0) //proceso hijo
-		chill_process(s_pipex.fd, argv, envp);
+		child_process(s_pipex.fd, argv, envp);
 	else
 		parent_process(s_pipex.fd, argv, envp, s_pipex.pid);
 	return 0;

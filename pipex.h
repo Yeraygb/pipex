@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:23:52 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/10 15:25:20 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/13 16:07:33 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+
+# define READ_END 0
+# define WRITE_END 1
 
 typedef struct s_pipex
 {
