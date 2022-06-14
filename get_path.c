@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:46:03 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/14 13:00:50 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/14 14:45:37 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	*obtain_path(char *split_av, char **envp, char	**path_command)
 	s_path.pathget = env_path(envp);
 	while (s_path.pathget[i])
 	{
-		s_path.pathjoin = ft_strjoin(s_path.pathget[i], "/");
-		s_path.pathav = ft_strjoin(s_path.pathjoin, split_av);
+		s_path.pathslash = ft_strjoin(s_path.pathget[i], "/");
+		s_path.pathav = ft_strjoin(s_path.pathslash, split_av);
 		s_path.fd = open (s_path.pathav, O_RDONLY);
 		if (s_path.fd >= 0)
 		{

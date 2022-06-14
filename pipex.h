@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:23:52 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/14 13:00:24 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/14 13:21:26 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_path
 {
 	char	**path;
 	char	**pathget;
-	char	*pathjoin;
+	char	*pathslash;
 	char	*pathav;
 	int		fd;
 }	t_path;
@@ -41,5 +41,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
 void	*obtain_path(char *split_av, char **envp, char	**path_command);
+char	**env_path(char **envp);
+size_t	ft_strlen(const char *str);
 
 #endif

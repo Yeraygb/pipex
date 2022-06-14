@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/14 12:46:55 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/14 13:20:25 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	child_process(int *fd, char **argv, char **envp)
 	close(file);
 	split_av = ft_split(argv[2], ' ');
 	obtain_path(split_av[0], envp, &path_command);
-	execve("../bin/ls", dir, envp);
+	execve(path_command, split_av, envp);
 }
 
 void	parent_process(int *fd, char **argv, char **envp, pid_t pid)
@@ -54,17 +54,15 @@ void	parent_process(int *fd, char **argv, char **envp, pid_t pid)
 	close(fd[1]);
 	split_av = ft_split(argv[3], ' ');
 	obtain_path(split_av[0], envp, &path_command);
-	execve("../usr/bin/wc", dir2, envp);
+	execve(path_command, split_av, envp);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	s_pipex;
-	char	**path;
 
-	//path = obtain_path(envp);
 	if (argc != 5)
-		return (ft_printf("Number of argument invalid\n"));
+		return (printf("Number of argument invalid\n"));
 	pipe (s_pipex.fd);
 	s_pipex.pid = fork();
 	if (s_pipex.pid == -1)
