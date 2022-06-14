@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/14 12:25:53 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/14 12:46:55 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,43 +17,13 @@
 #include <sys/wait.h>
 #include <stdlib.h> 
 
-void	*obtain_path(char *split_av, char **envp, char	**command)
-{
-	t_path	s_path;
-	int		i;
-	int		n;
-
-	n = 0;
-	i = 0;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-			s_path.path = ft_split(ft_strchr(envp[i], '/'), ':');
-		i++;
-	}
-	while (s_path.path[n])
-	{
-		s_path.pathjoin = ft_strjoin(s_path.path[n], "/");
-		s_path.pathav = ft_strjoin(s_path.pathjoin, split_av);
-		s_path.fd = open (s_path.pathav, O_RDONLY);
-		if (s_path.fd >= 0)
-		{
-			*command = s_path.pathav;
-			return ;
-		}
-		free(s_path.pathav);
-		n++;
-	}
-	free(s_path.path);
-}
-
 void	child_process(int *fd, char **argv, char **envp)
 {
 	int		infile;
 	char	**split_av;
-	char 	*dir[] = {"ls", "-l", 0};
+	char	*dir[] = {"ls", "-l", 0};
 	int		file;
-	char	*command;
+	char	*path_command;
 
 	close(fd[1]); //cerramos el lado de escritura del pipe
 	file = open("infile", O_RDONLY);
@@ -63,8 +33,8 @@ void	child_process(int *fd, char **argv, char **envp)
 	close(fd[1]); //cerrar el lado de escrituda
 	close(file);
 	split_av = ft_split(argv[2], ' ');
-	obtain_path(split_av[0], envp, &command);
-	execve("../bin/ls",  dir, envp);
+	obtain_path(split_av[0], envp, &path_command);
+	execve("../bin/ls", dir, envp);
 }
 
 void	parent_process(int *fd, char **argv, char **envp, pid_t pid)
@@ -73,6 +43,7 @@ void	parent_process(int *fd, char **argv, char **envp, pid_t pid)
 	char	**split_av;
 	char	*dir2[] = {"wc", "-l", 0};
 	int		file;
+	char	*path_command;
 
 	waitpid(pid, NULL, 0); //espera al proceso hijo
 	file = open("outfile", O_WRONLY);
@@ -82,13 +53,13 @@ void	parent_process(int *fd, char **argv, char **envp, pid_t pid)
 	dup2(file, STDOUT_FILENO);
 	close(fd[1]);
 	split_av = ft_split(argv[3], ' ');
-	obtain_path(split_av, envp);
+	obtain_path(split_av[0], envp, &path_command);
 	execve("../usr/bin/wc", dir2, envp);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_pipex s_pipex;
+	t_pipex	s_pipex;
 	char	**path;
 
 	//path = obtain_path(envp);
@@ -99,14 +70,14 @@ int	main(int argc, char **argv, char **envp)
 	if (s_pipex.pid == -1)
 	{
 		perror("ERROR");
-		return 1;
+		return (1);
 	}
 	if (s_pipex.pid == 0) //proceso hijo
 		child_process(s_pipex.fd, argv, envp);
 	else
 		parent_process(s_pipex.fd, argv, envp, s_pipex.pid);
-	return 0;
-} 
+	return (0);
+}
 
 /* int main (void)
 {
