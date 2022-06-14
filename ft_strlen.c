@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:46:28 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/14 13:16:50 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:04:23 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ size_t	ft_strlen(const char *str)
 
 	count = 0;
 	while (str[count])
-	{
 		count++;
-	}
 	return (count);
 }

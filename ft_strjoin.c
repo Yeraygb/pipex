@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 10:04:47 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/10 15:39:19 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:04:42 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,6 @@
 /*
 ** La funcon separa una string en dos substring desde la coincidencia de c
 */
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	count;
-
-	count = 0;
-	while (str[count])
-		count++;
-	return (count);
-}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

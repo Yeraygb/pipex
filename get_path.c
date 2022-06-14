@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:46:03 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/14 14:45:37 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:03:40 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 char	**env_path(char **envp)
 {
-	t_path	s_path;
+	char	**splitpath;
 	int		i;
 
 	i = 0;
@@ -23,8 +23,8 @@ char	**env_path(char **envp)
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
-			s_path.path = ft_split(ft_strchr(envp[i], '/'), ':');
-			return (s_path.path);
+			splitpath = ft_split(ft_strchr(envp[i], '/'), ':');
+			return (splitpath);
 		}
 		i++;
 	}
@@ -37,16 +37,16 @@ void	*obtain_path(char *split_av, char **envp, char	**path_command)
 	int		i;
 
 	i = 0;
-	s_path.pathget = env_path(envp);
-	while (s_path.pathget[i])
+	s_path.path = env_path(envp);
+	while (s_path.path[i])
 	{
-		s_path.pathslash = ft_strjoin(s_path.pathget[i], "/");
+		s_path.pathslash = ft_strjoin(s_path.path[i], "/");
 		s_path.pathav = ft_strjoin(s_path.pathslash, split_av);
 		s_path.fd = open (s_path.pathav, O_RDONLY);
 		if (s_path.fd >= 0)
 		{
 			*path_command = s_path.pathav;
-			return ;
+			close(s_path.fd);
 		}
 		free(s_path.pathav);
 		i++;
