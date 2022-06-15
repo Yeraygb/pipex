@@ -1,0 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/05 09:14:22 by ygonzale          #+#    #+#             */
+/*   Updated: 2022/06/15 11:42:16 by ygonzale         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/pipex.h"
+
+/*
+** La funcion reserva memoria para crear una suybstring empezando por start
+** y tiene una longitud max
+**
+** @param {char const *s} La string que quieres copiar
+** @param {unsigned int start} El indice start por el que quieres que empieze a
+** copiar
+** @param {size_t len} El tamaño que quieres copiar
+**
+** @return {char} La nueva substring
+*/
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+
+	if (!s)
+		return (NULL);
+	if (len > ft_strlen(s))
+		len = ft_strlen(s);
+	str = (char *)malloc(sizeof(*s) * (len + 1));
+	if (!str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (i >= start && j < len)
+		{
+			str[j] = s[i];
+			j++;
+		}
+		i++;
+	}
+	str[j] = '\0';
+	return (str);
+}

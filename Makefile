@@ -6,12 +6,14 @@
 #    By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 11:44:20 by ygonzale          #+#    #+#              #
-#    Updated: 2022/06/13 16:02:28 by ygonzale         ###   ########.fr        #
+#    Updated: 2022/06/15 11:29:43 by ygonzale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-SRC = pipex.c test.c \
+SRC = pipex.c ft_split.c ft_strchr.c \
+	ft_strjoin.c ft_strlen.c ft_strncmp.c \
+	ft_substr.c get_path.c \
 
 OBJS = $(SRC:.c=.o)
 
@@ -31,7 +33,7 @@ clean:
 
 fclean:
 	@rm -f $(OBJS) $(NAME)
-	@echo 🗑 "\033[34;3;4mall clean\033[0m" 🗑
+	@echo 🗑 "\033[31;3;4mall clean\033[0m" 🗑
 	
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/14 15:53:40 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/15 10:56:17 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 void	child_process(int *fd, char **argv, char **envp)
 {
-	int		infile;
 	char	**split_av;
 	int		filein;
 	char	*path_command;
@@ -35,14 +34,14 @@ void	child_process(int *fd, char **argv, char **envp)
 	execve(path_command, split_av, envp);
 }
 
-void	parent_process(int *fd, char **argv, char **envp, pid_t pid)
+void	parent_process(int *fd, char **argv, char **envp)
 {
-	int		outfile;
 	char	**split_av;
 	int		fileout;
 	char	*path_command;
 
-	fileout = open(argv[4], O_WRONLY);
+	fileout = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC,
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	close(fd[1]); //cerramos el lado de escritura del pipe
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]); //cerramos el lado de lectura del pipe
@@ -71,7 +70,7 @@ int	main(int argc, char **argv, char **envp)
 	else
 	{
 		waitpid(s_pipex.pid, NULL, 0);
-		parent_process(s_pipex.fd, argv, envp, s_pipex.pid);
+		parent_process(s_pipex.fd, argv, envp);
 	}
 	return (0);
 }
