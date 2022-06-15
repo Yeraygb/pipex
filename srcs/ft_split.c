@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:45:11 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/15 11:41:49 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/15 16:10:13 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static int	ft_count_s(char const *s, char c)
 		while (s[i] == c && s[i])
 			i++;
 		if (s[i] != '\0')
+			count++;
+		else if (s[i] == 39)
 			count++;
 		while (s[i] != c && s[i])
 			i++;
