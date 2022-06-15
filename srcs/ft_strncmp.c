@@ -6,12 +6,11 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:45:14 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/15 11:42:11 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/15 12:00:07 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
-#include <string.h>
 
 /*
 ** search the diff between 2 strings and return "< 0 >"

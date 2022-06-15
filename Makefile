@@ -6,34 +6,39 @@
 #    By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 11:44:20 by ygonzale          #+#    #+#              #
-#    Updated: 2022/06/15 11:29:43 by ygonzale         ###   ########.fr        #
+#    Updated: 2022/06/15 12:12:01 by ygonzale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-SRC = pipex.c ft_split.c ft_strchr.c \
-	ft_strjoin.c ft_strlen.c ft_strncmp.c \
-	ft_substr.c get_path.c \
+SRC = pipex.c \
+	./srcs/ft_split.c  \
+	./srcs/ft_strchr.c \
+	./srcs/ft_strjoin.c \
+	./srcs/ft_strlen.c \
+	./srcs/ft_strncmp.c \
+	./srcs/ft_substr.c \
+	./srcs/get_path.c \
 
 OBJS = $(SRC:.c=.o)
 
-CFLAGS = -Wall -Werror -Wextra
+FLAGS = gcc -Wall -Werror -Wextra
+
+$(NAME): $(OBJS)
+	@echo ✅ "\033[92;3;4mcompilation done\033[0m" ✅
+	@ar -rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
+	@$(FLAGS) $(SRC) -o pipex
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
-	@echo ✅ "\033[92;3;4mcompilation done\033[0m" ✅
-
-$(OBJS): $(SRC)
-	gcc $(CFLAGS) -c $(SRC)
-
 clean:
 	@rm -f $(OBJS)
-
-fclean:
-	@rm -f $(OBJS) $(NAME)
 	@echo 🗑 "\033[31;3;4mall clean\033[0m" 🗑
+
+fclean: clean
+	@rm -f $(NAME)
+	@rm -rf pipex
 	
 re: fclean all
 
