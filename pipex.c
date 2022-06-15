@@ -31,7 +31,6 @@ void	child_process(int *fd, char **argv, char **envp)
 	close(filein);
 	split_av = ft_split(argv[2], ' ');
 	obtain_path(split_av[0], envp, &path_command);
-	printf("comando con el path hijo:%s\n", path_command);
 	execve(path_command, split_av, envp);
 }
 
@@ -48,10 +47,7 @@ void	parent_process(int *fd, char **argv, char **envp)
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 	split_av = ft_split(argv[3], ' ');
-	printf("split:%s\n", split_av[0]);
-	printf("argv3:%s\n", argv[3]);
 	obtain_path(split_av[0], envp, &path_command);
-	printf("comando con el path padre:%s\n", path_command);
 	execve(path_command, split_av, envp);
 	exit (0);
 }
