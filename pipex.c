@@ -6,11 +6,11 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/15 10:56:17 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/15 11:45:04 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "./include/pipex.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
