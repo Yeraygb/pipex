@@ -6,7 +6,7 @@
 #    By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 11:44:20 by ygonzale          #+#    #+#              #
-#    Updated: 2022/06/15 12:12:01 by ygonzale         ###   ########.fr        #
+#    Updated: 2022/06/15 12:44:52 by ygonzale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@rm -rf pipex
+	@rm -f outfile
 	
 re: fclean all
 
