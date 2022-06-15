@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:46:03 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/15 13:19:37 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/15 14:40:35 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,5 @@ void	obtain_path(char *split_av, char **envp, char	**path_command)
 		i++;
 	}
 	free(s_path.path);
-	printf("comando con el path funcion obtain:%s\n", path_command[0]);
 }
  
