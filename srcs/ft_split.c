@@ -6,11 +6,38 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:45:11 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/15 16:10:13 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/17 11:21:37 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
+/* char	*comillas(char const *s)
+{
+	int		i;
+	int		n;
+	char	*command;
+
+	n = 0;
+	i = 0;
+	command = (char *)malloc(sizeof(char) * ft_strlen(s));
+	while (s[i] != '\0')
+	{
+		if (s[i] == 39)
+		{
+			i++;
+			while (s[i] != 39)
+			{
+				command[n] = s[i];
+				n++;
+				i++;
+			}
+		}
+		i++;
+	}
+	command[n] = '\0';
+	return (command);
+} */
 
 static int	ft_count_s(char const *s, char c)
 {
@@ -25,8 +52,8 @@ static int	ft_count_s(char const *s, char c)
 			i++;
 		if (s[i] != '\0')
 			count++;
-		else if (s[i] == 39)
-			count++;
+		if (s[i] == 39)
+			break ;
 		while (s[i] != c && s[i])
 			i++;
 	}
@@ -47,6 +74,8 @@ static char	**ft_body(char **dest, char const *src, char c)
 		while (src[i] != c && src[i])
 		{
 			i++;
+			/* if (src[i] == 39)
+				dest[j++] = comillas(src); */
 			if (src[i] == c || i == ft_strlen(src))
 				dest[j++] = ft_substr(src, count, i - count);
 		}
