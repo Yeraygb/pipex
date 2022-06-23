@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/20 17:23:13 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:51:47 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,22 @@ int	main(int argc, char **argv, char **envp)
 		child_process(s_pipex.fd, argv, envp);
 	else
 	{
-		waitpid(s_pipex.pid, NULL, 0);
-		parent_process(s_pipex.fd, argv, envp);
+		s_pipex.pid = fork();
+		if (s_pipex.pid == -1)
+		{
+			perror("fork");
+			return (1);
+		}
+		else if (s_pipex.pid == 0)
+		{
+			waitpid(s_pipex.pid, NULL, 0);
+			parent_process(s_pipex.fd, argv, envp);
+		}
+		else
+		{
+			close(s_pipex.fd[0]);
+			close(s_pipex.fd[1]);
+		}
 	}
 	return (0);
 }
