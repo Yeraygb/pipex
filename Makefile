@@ -6,7 +6,7 @@
 #    By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 11:44:20 by ygonzale          #+#    #+#              #
-#    Updated: 2022/06/17 13:23:42 by ygonzale         ###   ########.fr        #
+#    Updated: 2022/06/24 12:47:28 by ygonzale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,17 @@ SRC = pipex.c \
 	./srcs/ft_substr.c \
 	./srcs/get_path.c \
 
+SRCS_BONUS = pipex_bonus.c \
+		./srcs/ft_strchr.c \
+		./srcs/ft_strjoin.c \
+		./srcs/ft_strlen.c \
+		./srcs/ft_strncmp.c \
+		./srcs/ft_substr.c \
+		./srcs/get_path.c \
+
 OBJS = $(SRC:.c=.o)
+
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 FLAGS = gcc -Wall -Werror -Wextra -g
 
@@ -32,8 +42,13 @@ $(NAME): $(OBJS)
 
 all: $(NAME)
 
+bonus: $(OBJS) $(OBJS_BONUS)
+	@echo ✅ "\033[92;3;4mbonus compilation done\033[0m" ✅
+	@ar -rc $(NAME) $(OBJS_BONUS)
+	@$(FLAGS) $(SRC_BONUS) -o pipex
+
 clean:
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) $(OBJS_BONUS)
 	@echo 🗑 "\033[31;3;4mall clean\033[0m" 🗑
 
 fclean: clean

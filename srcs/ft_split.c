@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:45:11 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/24 11:08:32 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/24 12:01:56 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_count_s(char const *s, char c)
 		while (s[i] != c && s[i] && s[i] != 39)
 			i++;
 	}
-	printf("rows: %zu\n", count);
+	//printf("rows: %zu\n", count);
 	return (count);
 }
 
@@ -51,12 +51,20 @@ static char	**ft_body(char **dest, char const *src, char c)
 	{
 		while (src[i] != c && src[i])
 		{
-			if (src[i++] == 39)
+			/* if (src[i++] == 39)
 				while (src[i] && src[i] != 39)
-					i++;
+					i++; */
 			i++;
 			if (src[i] == c || i == ft_strlen(src))
+			{
+				if (src[i] == 39)
+				{
+					i++;
+					while(src[i] && src[i] != 39)
+						i++;
+				}
 				dest[j++] = ft_substr(src, count, i - count);
+			}
 		}
 		while (src[i] == c && src[i])
 		{
