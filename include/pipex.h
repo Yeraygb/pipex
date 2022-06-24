@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:23:52 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/15 13:11:26 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/24 16:40:40 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ void	obtain_path(char *split_av, char **envp, char	**path_command);
 char	**env_path(char **envp);
 size_t	ft_strlen(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+int		infile_error(char **argv);
 
 #endif
