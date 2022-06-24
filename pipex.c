@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/21 16:51:47 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/24 10:34:57 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <stdlib.h> 
-
-/* int	comprobar_comillas(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == 39)
-			return (1);
-		i++;
-	}
-	return (0);
-} */
-	/* if (comprobar_comillas(argv[3]) == 0)
-	else if (comprobar_comillas(argv[3]) == 1) */
+#include <stdlib.h>
 
 void	child_process(int *fd, char **argv, char **envp)
 {
