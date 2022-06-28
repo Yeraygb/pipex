@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:46:03 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/28 12:04:34 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/28 13:17:52 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	obtain_path(char *split_av, char **envp, char	**path_command)
 		s_path.fd2 = open (s_path.pathav, O_RDONLY);
 		if (s_path.fd2 >= 0)
 		{
-			*path_command = ft_substr(s_path.pathav, 0, ft_strlen(s_path.pathav));
+			*path_command = ft_substr(s_path.pathav, 0, \
+			ft_strlen(s_path.pathav));
 			close(s_path.fd2);
 		}
 		free(s_path.pathav);
