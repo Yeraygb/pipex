@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:23:52 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/24 16:40:40 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:14:34 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,9 @@ char	**env_path(char **envp);
 size_t	ft_strlen(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		infile_error(char **argv);
+int		ft_putstr(char *str);
+int		ft_putchar(char c);
+void	ft_putendl_fd(char *s, int fd);
+void	free_trash(char **trash);
 
 #endif

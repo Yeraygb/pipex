@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_errors.c                                     :+:      :+:    :+:   */
+/*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/24 15:56:33 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/24 16:40:37 by ygonzale         ###   ########.fr       */
+/*   Created: 2022/06/28 10:33:26 by ygonzale          #+#    #+#             */
+/*   Updated: 2022/06/28 12:17:58 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,64 @@ int	infile_error(char **argv)
 	if (fd == -1)
 	{
 		printf("%s: ", argv[1]);
-		printf("No such file or directory");
+		printf("No such file or directory\n");
 		return (0);
 	}
 	return (1);
 }
 
-/* int outfile_error(int argc, char **argv)
+int	ft_putchar(char c)
 {
-	int fd;
+	int	dest;
 
-	fd = open(argv[argc - 1], O_RDONLY);
-	if (fd == -1)
+	dest = 0;
+	dest += write(1, &c, 1);
+	return (dest);
+}
+
+int	ft_putstr(char *str)
+{
+	int	i;
+	int	dest;
+
+	i = 0;
+	dest = 0;
+	if (!str)
+		return (ft_putstr("(null)"));
+	while (str[i])
 	{
-		printf("%s: ", argv[argc - 1]);
-		printf("No such file or directory");
-		return (0);
+		dest += ft_putchar(str[i]);
+		i++;
 	}
-	return (1);
-} */
+	return (dest);
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (s)
+	{
+		while (s[i])
+		{
+			write(fd, &s[i], 1);
+			i++;
+		}
+		if (s[i + 1] == '\0')
+			write (fd, "\n", 1);
+	}
+}
+
+void	free_trash(char **trash)
+{
+	int	i;
+
+	i = 0;
+	while (trash[i])
+	{
+		free(trash[i]);
+		i++;
+	}
+	free(trash);
+}

@@ -6,7 +6,7 @@
 #    By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 11:44:20 by ygonzale          #+#    #+#              #
-#    Updated: 2022/06/24 16:28:00 by ygonzale         ###   ########.fr        #
+#    Updated: 2022/06/28 10:36:13 by ygonzale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC = pipex.c \
 	./srcs/ft_strncmp.c \
 	./srcs/ft_substr.c \
 	./srcs/get_path.c \
-	./srcs/check_errors.c \
+	./srcs/pipex_utils.c \
 
 SRCS_BONUS = pipex_bonus.c \
 		./srcs/ft_strchr.c \

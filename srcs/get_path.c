@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:46:03 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/21 13:06:51 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:04:34 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,3 @@ void	obtain_path(char *split_av, char **envp, char	**path_command)
 	}
 	free(s_path.path);
 }
- 

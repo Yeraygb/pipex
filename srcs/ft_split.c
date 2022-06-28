@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:45:11 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/24 12:01:56 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/06/27 10:26:19 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ static char	**ft_body(char **dest, char const *src, char c)
 	{
 		while (src[i] != c && src[i])
 		{
-			/* if (src[i++] == 39)
+			//printf("src: %c\n", src[i]);
+			if (src[i++] == 39)
 				while (src[i] && src[i] != 39)
-					i++; */
+					i++;
 			i++;
 			if (src[i] == c || i == ft_strlen(src))
 			{
