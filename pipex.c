@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:26:21 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/28 13:17:32 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/07/04 10:56:38 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	s_pipex;
 
 	if (argc != 5)
-		return (printf("Number of argument invalid\n"));
+	{
+		ft_putendl_fd("Number of argument invalid\n", 2);
+		return (0);
+	}
 	if (infile_error(argv) == 0)
 		exit(0);
 	pipe (s_pipex.fd);

@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:45:11 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/28 15:40:56 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/07/04 10:54:39 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,13 @@ static int	ft_count_s(char const *s, char c)
 	{
 		while (s[i] == c && s[i])
 			i++;
-		if (s[i] && s[i] == 39)
-		{
-			i++;
-			while (s[i] && s[i] != 39)
-				i++;
-		}
 		if (s[i] != '\0')
 			count++;
-		while (s[i] != c && s[i] && s[i] != 39)
+		while (s[i] != c && s[i])
 			i++;
 	}
 	return (count);
 }
-
-//void	*ft_body2(char **)
 
 static char	**ft_body(char **dest, char const *src, char c)
 {
@@ -52,20 +44,9 @@ static char	**ft_body(char **dest, char const *src, char c)
 	{
 		while (src[i] != c && src[i])
 		{
-			if (src[i++] == 39)
-				while (src[i] && src[i] != 39)
-					i++;
 			i++;
 			if (src[i] == c || i == ft_strlen(src))
-			{
-				if (src[i] == 39)
-				{
-					i++;
-					while (src[i] && src[i] != 39)
-						i++;
-				}
 				dest[j++] = ft_substr(src, count, i - count);
-			}
 		}
 		while (src[i] == c && src[i])
 		{

@@ -6,7 +6,7 @@
 /*   By: ygonzale <ygonzale@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 10:33:26 by ygonzale          #+#    #+#             */
-/*   Updated: 2022/06/28 13:17:56 by ygonzale         ###   ########.fr       */
+/*   Updated: 2022/07/04 10:59:49 by ygonzale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ int	infile_error(char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
-		printf("%s: ", argv[1]);
-		printf("No such file or directory\n");
+		ft_putendl_fd(argv[1], 2);
+		ft_putendl_fd (": ", 2);
+		ft_putendl_fd("No such file or directory\n", 2);
 		return (0);
 	}
 	return (1);
